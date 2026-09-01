@@ -1,0 +1,11 @@
+﻿@model VegetarienViewModel
+
+<h4>@Model.Title</h4>
+
+Complètement végératien: <b>@Model.ToutVege</b>
+Option végétarienne Linq: <b>@Model.ToutVegeLinq</b>
+<partial name="_MemeValeur" model="@Model.ToutVegeMemeValeur" />
+<br />
+Option végétarienne: <b>@Model.OptionVege</b>
+Option végétarienne Linq: <b>@Model.OptionVegeLinq</b>
+<partial name="_MemeValeur" model="@Model.OptionVegeMemeValeur" />

@@ -1,0 +1,36 @@
+﻿@model PlatsViewModel
+
+<h4>@Model.Title</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Prix
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Plats) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prix)$
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_MemeValeur" model="@Model.MemeValeur" />

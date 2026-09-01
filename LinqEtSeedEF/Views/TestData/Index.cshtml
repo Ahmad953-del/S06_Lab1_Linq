@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Test Data";
+}
+
+Le nombre de TestDatas: <b>@ViewData["TotalCount"]</b>
+<br/>
+Le nombre de TestDatas avec Id plus petit que 100: <b>@ViewData["First100Count"]</b>
+
+<form method="post" asp-action="AddData">
+    <input type="submit" class="btn btn-info" value="Ajouter 100,000 entrées" />
+</form>

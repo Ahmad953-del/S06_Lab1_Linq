@@ -1,0 +1,27 @@
+﻿@model QuestionsViewModel
+
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<partial name="_Decimal" model="Model.PrixPlatLePlusCher" />
+<hr />
+<partial name="_Decimal" model="Model.ValeurTotalDesPlats" />
+<hr />
+<partial name="_Decimal" model="Model.ValeurTotalDesCommandes" />
+<hr />
+<partial name="_Decimal" model="Model.PrixCommandeLaPlusCher" />
+<hr />
+
+<partial name="_Vegetarien" model="Model.VegetarienResto1" />
+<hr />
+<partial name="_Vegetarien" model="Model.VegetarienResto2" />
+<hr />
+<partial name="_Vegetarien" model="Model.VegetarienResto3" />
+<hr />
+
+<partial name="_Plats" model="Model.PlatsVege" />
+<hr />
+<partial name="_Plats" model="Model.PlatsLesPlusChers" />
+<hr />
+

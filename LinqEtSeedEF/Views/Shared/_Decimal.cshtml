@@ -1,0 +1,7 @@
+﻿@model DecimalViewModel
+
+<h4>@Model.Titre</h4>
+
+Linq: <b> @Model.ValeurLinq$ </b>
+Boucle: <b> @Model.Valeur$ </b>
+<partial name="_MemeValeur" model="@Model.MemeValeur" />

@@ -1,0 +1,13 @@
+﻿@model DataViewModel
+
+@{
+    ViewData["Title"] = "Données";
+}
+
+<partial name="_RestaurantsListe" model="Model.Restaurants" />
+<partial name="_PlatsListe" model="Model.Plats" />
+<partial name="_ClientsListe" model="Model.Clients"/>
+<partial name="_CommandesListe" model="Model.Commandes" />
+<partial name="_CommandePlatsListe" model="Model.CommandePlats" />
+
+

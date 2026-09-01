@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CommandePlat>
+
+<h1>Liste de commandes de plats</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Commande)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plat.Prix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantite)
+            </th>
+            <th>
+                Prix pour le nombre de plats
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commande.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plat.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plat.Prix)$
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantite)
+            </td>
+            <td>
+               @(item.Quantite * item.Plat.Prix)$
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
