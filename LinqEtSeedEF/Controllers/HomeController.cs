@@ -69,9 +69,16 @@ namespace LinqEtSeedEF.Controllers
             // TODO: Écrire la logique pour trouver le prix du plat le plus cher avec une boucle
             var liste = _context.Plat.ToList();
             decimal prix = 0;
+            foreach(var plat in _context.Plat)
+            {
+                if (plat.Prix > 10)
+                {
+                    prix++;
+                }
+            }
             // TODO: Écrire la logique pour trouver le prix du plat le plus cher avec Linq
             // Utilisez Max
-            decimal prixLinq = 0;
+            decimal prixLinq = _context.Plat.Where(p => p.Prix > 10).Count();
 
             return new DecimalViewModel("Quel est le prix du plat le plus cher?", prix, prixLinq);
         }
@@ -79,8 +86,19 @@ namespace LinqEtSeedEF.Controllers
         private DecimalViewModel ValeurTotalDesPlats()
         {
             // TODO: Calculer la valeur totale des plats avec boucle et Linq
+            
+            decimal vPlats = 0;
+            foreach( var plat in _context.Plat)
+            {
+                vPlats += plat.Prix;
+                
+            }
+
+
             // Utilisez Sum avec Linq
-            return new DecimalViewModel("Quelle est la valeur totale des plats?", 0, 0);
+            var vPlat = _context.Plat.Sum(p => p.Prix);
+             
+            return new DecimalViewModel("Quelle est la valeur totale des plats?", vPlats, vPlat);
         }
 
         private DecimalViewModel ValeurTotalDesCommandes(string nomClient)
