@@ -1,3 +1,4 @@
+using AspNetCoreGeneratedDocument;
 using LinqEtSeedEF.Data;
 using LinqEtSeedEF.Models;
 using LinqEtSeedEF.ViewModels;
@@ -87,43 +88,76 @@ namespace LinqEtSeedEF.Controllers
         {
             // TODO: Calculer la valeur totale des plats avec boucle et Linq
             
-            decimal vPlats = 0;
+            decimal totalPlat = 0;
             foreach( var plat in _context.Plat)
             {
-                vPlats += plat.Prix;
+                totalPlat += plat.Prix;
                 
             }
 
 
             // Utilisez Sum avec Linq
-            var vPlat = _context.Plat.Sum(p => p.Prix);
+            decimal tPlat = _context.Plat.Sum(p => p.Prix);
              
-            return new DecimalViewModel("Quelle est la valeur totale des plats?", vPlats, vPlat);
+            return new DecimalViewModel("Quelle est la valeur totale des plats?", totalPlat, tPlat);
         }
 
         private DecimalViewModel ValeurTotalDesCommandes(string nomClient)
         {
             // TODO: Calculer la valeur totale des commandes du client [nomClient] avec boucle et Linq
-            
+            decimal totalBoucl = 0;
+
+            foreach (var commande in _context.Commande)
+            {
+                if(commande.Client.Nom == nomClient)
+                {
+                    foreach(var prix in commande.CommandesPlats)
+                    {
+                        totalBoucl += prix.Plat.Prix * prix.Quantite;
+                    }
+                }
+            }
+
             // Linq: Utilisez Where et 2 fois Sum
             var listeLinq = _context.Commande.ToList();
             // Attention: c'est plus facile si vous faites un ToList() et faites le linq sur la liste et non pas le DbSet
             // on en parlera au prochain cours
             // Faites votre requête Linq sur listeLinq
-
-            return new DecimalViewModel("Quelle est la valeur totale des commandes de " + nomClient + "?", 0, 0);
+            decimal totalLinq = listeLinq.Where(c => c.Client.Nom == nomClient).Sum(cd => cd.CommandesPlats.Sum(p => p.Plat.Prix * p.Quantite));
+          
+            return new DecimalViewModel("Quelle est la valeur totale des commandes de " + nomClient + "?", totalBoucl, totalLinq);
         }
 
         private DecimalViewModel PrixCommandeLaPlusCher()
         {
             // TODO: Trouver le côut total de la commande la plus chère
-            
+            decimal prixMax = 0;
+            foreach (var commande in _context.Commande)
+            {
+                decimal prixCommande = 0;
+                //CommandePlat cPlusChère = _context.CommandePlat[0]
+                //commande.CommandesPlats.Add(cPlusChère.CommandesPlats[0]);
+                //if(commande.CommandesPlats>=cPlusChère.CommandesPlats.)
+                
+                foreach(var plat in commande.CommandesPlats)
+                {
+                    prixCommande += plat.Plat.Prix;
+
+                }
+
+                if (prixCommande > prixMax)
+                {
+                    prixMax += prixCommande;
+                }
+
+                
+            }
             // Linq: Utilisez Sum et Max
             var listeLinq = _context.Commande.ToList();
             // Attention: c'est plus facile si vous faites un ToList() et faites le linq sur la liste et non pas le DbSet
             // on en parlera au prochain cours
             // Faites votre requête Linq sur listeLinq
-
+            decimal prixLinq = listeLinq.Where( p=>p.CommandesPlats.Sum(c=> c.Plat.Prix > p.CommandesPlats.))
             return new DecimalViewModel("Quel est le prix de la commande la plus chère?", 0, 0);
         }
 

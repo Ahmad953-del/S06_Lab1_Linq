@@ -6,7 +6,7 @@ namespace LinqEtSeedEF.Models
     public class CommandePlat
     {
         public int PlatId { get; set; }
-        public Plat Plat { get; set; }
+        public Plat? Plat { get; set; }
         public int CommandeId { get; set; }
         public Commande Commande { get; set; }
 
