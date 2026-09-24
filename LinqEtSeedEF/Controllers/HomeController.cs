@@ -164,10 +164,19 @@ namespace LinqEtSeedEF.Controllers
         private VegetarienViewModel Vegetarien(string nomDuResto)
         {
             // TODO: Est-ce que le restaurant avec le nom [nomDuRest] a au moins un plat végé?
-            bool? optionVege = null;
+            bool? optionVege = false;
+            Restaurant resto = null;
+            foreach(var pla in _context.Restaurant)
+            {
+                if(pla.Nom == nomDuResto)
+                {
+                    resto = pla;
+                    break;
+                }
+            }
             // TODO: Est-ce que le restaurant a UNIQUEMENT des plats végés?
             bool? toutVege = null;
-
+            
             // TODO: Même chose, mais avec Linq
             // Utilisez Where, All et Any
             bool? optionVegeLinq = null;
