@@ -171,11 +171,32 @@ namespace LinqEtSeedEF.Controllers
                 if(pla.Nom == nomDuResto)
                 {
                     resto = pla;
+                    optionVege = true;
+                    
                     break;
                 }
+                
+                
             }
             // TODO: Est-ce que le restaurant a UNIQUEMENT des plats végés?
+            
             bool? toutVege = null;
+            if(resto.Plats.Count() == 0)
+            {
+                toutVege = false;
+            }
+
+            foreach(var pla in resto.Plats)
+            {
+                if (pla.Vegetarien)
+                {
+                    toutVege = true;
+                }
+                else
+                {
+                    optionVege = false;
+                }
+            }
             
             // TODO: Même chose, mais avec Linq
             // Utilisez Where, All et Any
