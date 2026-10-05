@@ -61,7 +61,7 @@ namespace LinqEtSeedEF.Controllers
 
             questionViewModel.PlatsVege = PlatsVegeOrdeCroissantDePrix();
             questionViewModel.PlatsLesPlusChers = PlatsLesPlusChersOrdeDecroissantDePrix(3);
-
+            
             return View(questionViewModel);
         }
 
@@ -161,6 +161,8 @@ namespace LinqEtSeedEF.Controllers
             return new DecimalViewModel("Quel est le prix de la commande la plus chère?", prixMax, prixLinq);
         }
 
+        // À Vérifier avec le professeur.. 
+
         private VegetarienViewModel Vegetarien(string nomDuResto)
         {
             // TODO: Est-ce que le restaurant avec le nom [nomDuRest] a au moins un plat végé?
@@ -197,11 +199,19 @@ namespace LinqEtSeedEF.Controllers
                     optionVege = false;
                 }
             }
-            
+
             // TODO: Même chose, mais avec Linq
             // Utilisez Where, All et Any
+
+
+            // À Vérifier avec le professeur.. 
+
+
             bool? optionVegeLinq = null;
             bool? toutVegeLinq = null;
+
+            optionVegeLinq = resto?.Plats.Any(c => c.Vegetarien);
+            toutVegeLinq = resto?.Plats.All(p => p.Vegetarien);
 
             return new VegetarienViewModel("Status végétarien du restaurant : " + nomDuResto, toutVege, toutVegeLinq, optionVege, optionVegeLinq);
         }
@@ -222,12 +232,41 @@ namespace LinqEtSeedEF.Controllers
             // Remplir une liste avec les plats végés en ordre croissant de prix
             // Note: Il y a une méthode ComparerPrix qui est déjà fournie au dessus
             // Remplir la liste avec une boucle
-            List<Plat> plats = new List<Plat>();
+            List<Plat> listplats = new List<Plat>();
+
+            // À Vérifier avec le professeur.. 
+
+
+            foreach(var platvége in _context.Restaurant)
+            {
+                foreach(var plat in _context.Plat.ToList())
+                {
+                    if (plat.Vegetarien)
+                    {
+                        listplats.Add(plat);
+                    }
+                }
+                listplats = platvége.Plats;
+
+
+                
+            }
+            int p1 = 0;
+            int p2 = 0;
+
+            listplats.Sort((p1, p2) => ComparerPrix(platA: p1, platB: p2));
+
             // Obtenir la liste avec Linq
             // Utilisez Where, OrderBy et ToList
             List<Plat> platsLinq = new List<Plat>();
 
-            return new PlatsViewModel("Quels sont les plats végétariens?", plats, platsLinq);
+            
+
+
+
+
+
+            return new PlatsViewModel("Quels sont les plats végétariens?", listplats, platsLinq);
         }
 
         private PlatsViewModel PlatsLesPlusChersOrdeDecroissantDePrix(int nbPlats)
